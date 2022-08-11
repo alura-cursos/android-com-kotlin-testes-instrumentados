@@ -30,7 +30,6 @@ class ListaProdutosAdapter(
                     quandoClicaNoItem(produto)
                 }
             }
-            itemView.visibility = View.GONE
         }
 
         fun vincula(produto: Produto) {
