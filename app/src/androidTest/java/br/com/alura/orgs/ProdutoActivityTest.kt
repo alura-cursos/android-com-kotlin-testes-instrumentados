@@ -41,7 +41,11 @@ class ProdutoActivityTest {
 
     @Test
     fun deveSerCapazDePreencherOsCamposESalvar() {
-        launch(FormularioProdutoActivity::class.java)
+        launch(ListaProdutosActivity::class.java)
+
+        onView(withId(R.id.activity_lista_produtos_fab))
+            .perform(click())
+
         onView(withId(R.id.activity_formulario_produto_nome))
             .perform(
                 typeText("Banana"),
@@ -60,8 +64,6 @@ class ProdutoActivityTest {
 
         onView(withId(R.id.activity_formulario_produto_botao_salvar))
             .perform(click())
-
-        launch(ListaProdutosActivity::class.java)
 
         onView(withText("Banana")).check(matches(isDisplayed()))
     }
