@@ -7,14 +7,19 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.platform.app.InstrumentationRegistry
 import br.com.alura.orgs.database.AppDatabase
 import br.com.alura.orgs.ui.activity.FormularioProdutoActivity
 import br.com.alura.orgs.ui.activity.ListaProdutosActivity
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
-class ProdutoActivityTest {
+class ProdutosTelasTests {
+
+    @get:Rule
+    val rule = ActivityScenarioRule(ListaProdutosActivity::class.java)
 
     @Before
     fun preparaAmbiente() {
@@ -25,14 +30,12 @@ class ProdutoActivityTest {
 
     @Test
     fun deveMostrarONomeDoAplicativo() {
-        launch(ListaProdutosActivity::class.java)
         onView(withText("Orgs")).check(matches(isDisplayed()))
     }
 
     @Test
     fun deveMostrarCamposNecessarioParaCriarUmProduto() {
-        launch(FormularioProdutoActivity::class.java)
-
+        clicaNoFAB()
         onView(withId(R.id.activity_formulario_produto_nome)).check(matches(isDisplayed()))
         onView(withId(R.id.activity_formulario_produto_descricao)).check(matches(isDisplayed()))
         onView(withId(R.id.activity_formulario_produto_valor)).check(matches(isDisplayed()))
@@ -41,7 +44,6 @@ class ProdutoActivityTest {
 
     @Test
     fun deveSerCapazDePreencherOsCamposESalvar() {
-        launch(ListaProdutosActivity::class.java)
 
         clicaNoFAB()
 
@@ -58,7 +60,6 @@ class ProdutoActivityTest {
 
     @Test
     fun deveSerCapazDeEditarUmProduto() {
-        launch(ListaProdutosActivity::class.java)
 
         clicaNoFAB()
 
