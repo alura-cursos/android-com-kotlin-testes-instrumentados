@@ -43,27 +43,15 @@ class ProdutoActivityTest {
     fun deveSerCapazDePreencherOsCamposESalvar() {
         launch(ListaProdutosActivity::class.java)
 
-        onView(withId(R.id.activity_lista_produtos_fab))
-            .perform(click())
+        clicaNoFAB()
 
-        onView(withId(R.id.activity_formulario_produto_nome))
-            .perform(
-                typeText("Banana"),
-                closeSoftKeyboard()
-            )
-        onView(withId(R.id.activity_formulario_produto_descricao))
-            .perform(
-                typeText("banana prata"),
-                closeSoftKeyboard()
-            )
-        onView(withId(R.id.activity_formulario_produto_valor))
-            .perform(
-                typeText("6.99"),
-                closeSoftKeyboard()
-            )
+        preencheCamposDoFormulario(
+            nome = "Banana",
+            descricao = "Prata",
+            valor = "6.99"
+        )
 
-        onView(withId(R.id.activity_formulario_produto_botao_salvar))
-            .perform(click())
+        clicaEmSalvar()
 
         onView(withText("Banana")).check(matches(isDisplayed()))
     }
@@ -72,30 +60,15 @@ class ProdutoActivityTest {
     fun deveSerCapazDeEditarUmProduto() {
         launch(ListaProdutosActivity::class.java)
 
-        onView(withId(R.id.activity_lista_produtos_fab))
-            .perform(click())
+        clicaNoFAB()
 
-        onView(withId(R.id.activity_formulario_produto_nome))
-            .perform(
-                typeText("Banana nanica"),
-                closeSoftKeyboard()
-            )
+        preencheCamposDoFormulario(
+            nome = "Banana nanica",
+            descricao = "da feira",
+            valor = "5.99"
+        )
 
-        onView(withId(R.id.activity_formulario_produto_descricao))
-            .perform(
-                typeText("Da feira"),
-                closeSoftKeyboard()
-            )
-
-        onView(withId(R.id.activity_formulario_produto_valor))
-            .perform(
-                typeText("5.99"),
-                closeSoftKeyboard()
-            )
-
-        onView(withId(R.id.activity_formulario_produto_botao_salvar))
-            .perform(click())
-
+        clicaEmSalvar()
 
         onView(withText("Banana nanica"))
             .perform(click())
@@ -103,28 +76,47 @@ class ProdutoActivityTest {
         onView(withId(R.id.menu_detalhes_produto_editar))
             .perform(click())
 
-        onView(withId(R.id.activity_formulario_produto_nome))
-            .perform(
-                replaceText("Banana prata"),
-                closeSoftKeyboard()
-            )
+        preencheCamposDoFormulario(
+            nome = "Banana prata",
+            descricao = "da vendinha",
+            valor = "3.99"
+        )
 
-        onView(withId(R.id.activity_formulario_produto_descricao))
-            .perform(
-                replaceText("da vendinha"),
-                closeSoftKeyboard()
-            )
-
-        onView(withId(R.id.activity_formulario_produto_valor))
-            .perform(
-                replaceText("3.99"),
-                closeSoftKeyboard()
-            )
-
-        onView(withId(R.id.activity_formulario_produto_botao_salvar))
-            .perform(click())
+        clicaEmSalvar()
 
         onView(withText("Banana prata"))
             .check(matches(isDisplayed()))
+    }
+
+    private fun clicaEmSalvar() {
+        onView(withId(R.id.activity_formulario_produto_botao_salvar))
+            .perform(click())
+    }
+
+    private fun clicaNoFAB() {
+        onView(withId(R.id.activity_lista_produtos_fab))
+            .perform(click())
+    }
+
+    private fun preencheCamposDoFormulario(
+        nome: String,
+        descricao: String,
+        valor: String
+    ) {
+        onView(withId(R.id.activity_formulario_produto_nome))
+            .perform(
+                replaceText(nome),
+                closeSoftKeyboard()
+            )
+        onView(withId(R.id.activity_formulario_produto_descricao))
+            .perform(
+                replaceText(descricao),
+                closeSoftKeyboard()
+            )
+        onView(withId(R.id.activity_formulario_produto_valor))
+            .perform(
+                replaceText(valor),
+                closeSoftKeyboard()
+            )
     }
 }
