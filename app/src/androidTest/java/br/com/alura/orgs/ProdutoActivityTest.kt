@@ -67,4 +67,64 @@ class ProdutoActivityTest {
 
         onView(withText("Banana")).check(matches(isDisplayed()))
     }
+
+    @Test
+    fun deveSerCapazDeEditarUmProduto() {
+        launch(ListaProdutosActivity::class.java)
+
+        onView(withId(R.id.activity_lista_produtos_fab))
+            .perform(click())
+
+        onView(withId(R.id.activity_formulario_produto_nome))
+            .perform(
+                typeText("Banana nanica"),
+                closeSoftKeyboard()
+            )
+
+        onView(withId(R.id.activity_formulario_produto_descricao))
+            .perform(
+                typeText("Da feira"),
+                closeSoftKeyboard()
+            )
+
+        onView(withId(R.id.activity_formulario_produto_valor))
+            .perform(
+                typeText("5.99"),
+                closeSoftKeyboard()
+            )
+
+        onView(withId(R.id.activity_formulario_produto_botao_salvar))
+            .perform(click())
+
+
+        onView(withText("Banana nanica"))
+            .perform(click())
+
+        onView(withId(R.id.menu_detalhes_produto_editar))
+            .perform(click())
+
+        onView(withId(R.id.activity_formulario_produto_nome))
+            .perform(
+                replaceText("Banana prata"),
+                closeSoftKeyboard()
+            )
+
+        onView(withId(R.id.activity_formulario_produto_descricao))
+            .perform(
+                replaceText("da vendinha"),
+                closeSoftKeyboard()
+            )
+
+        onView(withId(R.id.activity_formulario_produto_valor))
+            .perform(
+                replaceText("3.99"),
+                closeSoftKeyboard()
+            )
+
+        onView(withId(R.id.activity_formulario_produto_botao_salvar))
+            .perform(click())
+
+        onView(withText("Banana prata"))
+            .check(matches(isDisplayed()))
+    }
 }
